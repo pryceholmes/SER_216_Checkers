@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Initial Commit &#10;v0.0">
+    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Started move logic&#10;v1.0">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/CheckersLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CheckersLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/CheckersTextConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/CheckersTextConsole.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,21 +54,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/pryce/IdeaProjects/SER216_ProjectCheckers/src/Main.java&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CheckersTextConsole.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/pryce/IdeaProjects/SER216_ProjectCheckers/src/Main.java",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -84,7 +86,8 @@
       <option name="presentableId" value="Default" />
       <updated>1705854374201</updated>
       <workItem from="1705854375261" duration="4834000" />
-      <workItem from="1705859230300" duration="2071000" />
+      <workItem from="1705859230300" duration="2902000" />
+      <workItem from="1705865234265" duration="4789000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit &#10;v0.0">
       <option name="closed" value="true" />
@@ -102,7 +105,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705859215336</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Started move logic&#10;v1.0">
+      <option name="closed" value="true" />
+      <created>1705862127638</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1705862127638</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +121,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit &#10;v0.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial Commit &#10;v0.0" />
+    <MESSAGE value="Started move logic&#10;v1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started move logic&#10;v1.0" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="this.turn" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

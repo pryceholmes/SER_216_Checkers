@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Game logic for Checkers Game
  *
  * @author Pryce Holmes
- * @version v1.1
+ * @version v1.2
  */
 public class CheckersLogic {
     /** 2D integer array representing the checkers board,
@@ -184,13 +184,13 @@ public class CheckersLogic {
             if (row == 0) return false;
             else {
                 if (column == 0) {
-                    if (board[row + 1][column + 1] != -1)
+                    if (board[row - 1][column + 1] != -1)
                         return false;
                 } else if (column == 7) {
-                    if (board[row + 1][column - 1] != -1)
+                    if (board[row - 1][column - 1] != -1)
                         return false;
                 } else {
-                    if (board[row + 1][column - 1] != -1 && board[row + 1][column + 1] != -1)
+                    if (board[row - 1][column - 1] != -1 && board[row - 1][column + 1] != -1)
                         return false;
                 }
             }
@@ -198,13 +198,13 @@ public class CheckersLogic {
             if (row == 7) return false;
             else {
                 if (column == 0) {
-                    if (board[row - 1][column + 1] != -1)
+                    if (board[row + 1][column + 1] != -1)
                         return false;
                 } else if (column == 7) {
-                    if (board[row - 1][column - 1] != -1)
+                    if (board[row + 1][column - 1] != -1)
                         return false;
                 } else {
-                    if (board[row-1][column+1] != -1 && board[row-1][column-1] != -1)
+                    if (board[row+1][column+1] != -1 && board[row+1][column-1] != -1)
                         return false;
                 }
 
@@ -252,6 +252,14 @@ public class CheckersLogic {
      */
     public int[][] getBoard() {
         return board;
+    }
+
+    /**
+     * gets whos turn it currently is
+     * @return int representing whos turn it is
+     */
+    public int getTurn() {
+        return turn;
     }
 
 

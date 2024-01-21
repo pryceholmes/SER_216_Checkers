@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Started move logic&#10;v1.0">
+    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Game logic complete, needs testing&#10;v1.1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/core/CheckersLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CheckersLogic.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/CheckersTextConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/CheckersTextConsole.java" afterDir="false" />
@@ -56,7 +56,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.CheckersTextConsole.executor": "Run",
+    "Application.CheckersTextConsole.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -87,7 +87,7 @@
       <updated>1705854374201</updated>
       <workItem from="1705854375261" duration="4834000" />
       <workItem from="1705859230300" duration="2902000" />
-      <workItem from="1705865234265" duration="4789000" />
+      <workItem from="1705865234265" duration="8824000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit &#10;v0.0">
       <option name="closed" value="true" />
@@ -113,7 +113,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705862127638</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Game logic complete, needs testing&#10;v1.1">
+      <option name="closed" value="true" />
+      <created>1705871377361</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705871377361</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,13 +130,18 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial Commit &#10;v0.0" />
     <MESSAGE value="Started move logic&#10;v1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started move logic&#10;v1.0" />
+    <MESSAGE value="Game logic complete, needs testing&#10;v1.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Game logic complete, needs testing&#10;v1.1" />
   </component>
   <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="this.turn" language="JAVA" />
-      </configuration>
-    </watches-manager>
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ui/CheckersTextConsole.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

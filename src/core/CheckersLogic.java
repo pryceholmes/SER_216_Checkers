@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Game logic for Checkers Game
  *
  * @author Pryce Holmes
- * @version v1.2
+ * @version v1.3
  */
 public class CheckersLogic {
     /** 2D integer array representing the checkers board,
@@ -53,13 +53,17 @@ public class CheckersLogic {
         int new_y;
         int new_x;
 
-
+        if (input.length() < 5)
+            return 0;
         while (input.length() >= 5) {
             decoded = decodeMove(input);
-            old_y = decoded[0];
-            old_x = decoded[1];
-            new_y = decoded[2];
-            new_x = decoded[3];
+            if (decoded[0] == 0)
+                return 0;
+
+            old_y = decoded[1];
+            old_x = decoded[2];
+            new_y = decoded[3];
+            new_x = decoded[4];
 
             if (checkValidMove(old_y, old_x, new_y, new_x, jumpEligible) == 0) return 0;
             else if (checkValidMove(old_y, old_x, new_y, new_x, jumpEligible) == 1) {
@@ -72,13 +76,11 @@ public class CheckersLogic {
             }
 
             if (input.length() > 5) {
-                input = input.substring(6);
+                input = input.substring(3);
             } else {
                 input = input.substring(4);
             }
         }
-        for(int[] x : board)
-            System.out.println(Arrays.toString(x));
         if (turn == 1) turn = 0;
         else if (turn == 0) turn = 1;
         return 1;
@@ -107,7 +109,7 @@ public class CheckersLogic {
         if (board[old_y][old_x] != turn) return 0;
 
         //base check of distance between now and old spot
-        if (old_y - new_y > 2 || old_x - new_x > 2 || old_x - new_x < -2) return 0;
+        if (old_y - new_y > 2 || new_y - old_y > 2 || old_x - new_x > 2 || old_x - new_x < -2) return 0;
 
         // normal diag move case
         if (((old_y - new_y == 1 && turn ==1) || (new_y - old_y == 1 && turn == 0)) && (old_x - new_x == 1 || new_x - old_x == 1)) {
@@ -121,10 +123,14 @@ public class CheckersLogic {
             int temp_x;
             if (old_x - new_x == 2) {
                 temp_x = old_x - 1;
-                temp_y = old_y + 1;
+                if (turn == 1)
+                    temp_y = old_y - 1;
+                else temp_y = old_y + 1;
             } else {
                 temp_x = old_x + 1;
-                temp_y = old_y + 1;
+                if (turn == 1)
+                    temp_y = old_y - 1;
+                else temp_y = old_y + 1;
             }
             if (board[temp_y][temp_x] == -1 || board[temp_y][temp_x] == turn) {
                 return 0;
@@ -133,6 +139,8 @@ public class CheckersLogic {
                 board[temp_y][temp_x] = -1;
                 returnValue = 2;
             }
+        } else {
+            return 0;
         }
         return returnValue;
     }
@@ -141,32 +149,48 @@ public class CheckersLogic {
      *  Decodes user input to valid board coords
      *
      * @param s string of user input
-     * @return int array of coords for move
+     * @return int array of coords for move, first value is 1 if decode successful, 0 otherwise
      */
     public int[] decodeMove(String s) {
         CharacterIterator iter = new StringCharacterIterator(s);
-        int[] decodeArray = new int[4];
+        char temp;
+        int[] decodeArray = new int[5];
+        int decodeValid = 1;
 
         // decode current y value from string
-        decodeArray[0] = Character.getNumericValue(iter.current());
-        decodeArray[0] = 8 - decodeArray[0];
+        temp = iter.current();
+        if (Character.isDigit(temp) == false)
+            decodeValid = 0;
+        decodeArray[1] = Character.getNumericValue(temp);
+        decodeArray[1] = 8 - decodeArray[1];
         iter.next();
 
         // decode current x value from string
-        decodeArray[1] = iter.current();
-        decodeArray[1] = decodeArray[1] - 'a';
+        temp = iter.current();
+        if (Character.isAlphabetic(temp) == false)
+            decodeValid = 0;
+        decodeArray[2] = temp;
+        decodeArray[2] = decodeArray[2] - 'a';
 
         iter.next();
         iter.next();
 
         // decode new y value from string
-        decodeArray[2] = Character.getNumericValue(iter.current());
-        decodeArray[2] = 8 - decodeArray[2];
+        temp = iter.current();
+        if (Character.isDigit(temp) == false)
+            decodeValid = 0;
+        decodeArray[3] = Character.getNumericValue(temp);
+        decodeArray[3] = 8 - decodeArray[3];
         iter.next();
 
         // decode new x value from string
-        decodeArray[3] = iter.current();
-        decodeArray[3] = decodeArray[3] - 'a';
+        temp = iter.current();
+        if (Character.isAlphabetic(temp) == false)
+            decodeValid = 0;
+        decodeArray[4] = temp;
+        decodeArray[4] = decodeArray[4] - 'a';
+
+        decodeArray[0] = decodeValid;
 
         return decodeArray;
     }
@@ -239,9 +263,9 @@ public class CheckersLogic {
 
         if (X_Moves == 0 && O_Moves == 0)
             return 2;
-        else if (X_Moves == 1)
+        else if (X_Moves == 1 && O_Moves == 0)
             return 1;
-        else if (O_Moves == 1)
+        else if (O_Moves == 1 && X_Moves == 0)
             return 0;
         else return -1;
     }
@@ -252,6 +276,9 @@ public class CheckersLogic {
      */
     public int[][] getBoard() {
         return board;
+    }
+    public void setBoard(int[][] newBoard) {
+        board = newBoard;
     }
 
     /**

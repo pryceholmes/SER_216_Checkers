@@ -1,28 +1,45 @@
 package ui;
 
 import core.CheckersLogic;
+import java.util.Scanner;
 
 /**
  * Text-based UI implementation of Checkers game
  *
  * @author Pryce Holmes
- * @version 1.2
+ * @version 1.3
  */
 public class CheckersTextConsole {
     public static void main(String[] args) {
         CheckersLogic game = new CheckersLogic();
+        int[][] newBoard = new int[][]{{-1, 1, -1, -1, -1, -1, 1, 1},
+                                       {1, -1, -1, -1, -1, -1, -1, -1},
+                                       {-1, -1, -1, -1, -1, -1, -1, -1},
+                                       {-1, -1, 1, -1, -1, -1, -1, -1},
+                                       {-1, -1, -1, -1, -1, -1, -1, -1},
+                                       {-1, -1, -1, -1, -1, -1, -1, -1},
+                                       {0, -1, -1, -1, -1, -1, -1, -1},
+                                       {-1, 0, -1, -1, -1, -1, -1, -1}};
+        game.setBoard(newBoard);
         int logicComms;
         String userIn;
         while (game.determineWinner() == -1) {
             displayBoard(game);
             displayTurn(game);
-            userIn = " ";
+            userIn = getInput();
             logicComms = game.movePiece(userIn);
 
             if (logicComms == 0)
                 System.out.println("invalid move, try again");
 
         }
+        displayBoard(game);
+        if (game.determineWinner() == 0)
+            System.out.println("Player o Wins");
+        else if (game.determineWinner() == 1)
+            System.out.println("Player x Wins");
+        else if (game.determineWinner() == 2)
+            System.out.println("Tie Game");
     }
 
     public static void displayTurn(CheckersLogic game) {
@@ -60,6 +77,12 @@ public class CheckersTextConsole {
             System.out.println();
         }
 
+    }
+
+    public static String getInput() {
+        Scanner scnr = new Scanner(System.in);
+
+        return scnr.nextLine();
     }
 
 

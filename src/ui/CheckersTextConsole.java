@@ -7,20 +7,16 @@ import java.util.Scanner;
  * Text-based UI implementation of Checkers game
  *
  * @author Pryce Holmes
- * @version 1.3
+ * @version 1.4
  */
 public class CheckersTextConsole {
+    /**
+     * Main method for console-based checkers game. Uses CheckersLogic.java for all game logic
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         CheckersLogic game = new CheckersLogic();
-        int[][] newBoard = new int[][]{{-1, 1, -1, -1, -1, -1, 1, 1},
-                                       {1, -1, -1, -1, -1, -1, -1, -1},
-                                       {-1, -1, -1, -1, -1, -1, -1, -1},
-                                       {-1, -1, 1, -1, -1, -1, -1, -1},
-                                       {-1, -1, -1, -1, -1, -1, -1, -1},
-                                       {-1, -1, -1, -1, -1, -1, -1, -1},
-                                       {0, -1, -1, -1, -1, -1, -1, -1},
-                                       {-1, 0, -1, -1, -1, -1, -1, -1}};
-        game.setBoard(newBoard);
         int logicComms;
         String userIn;
         while (game.determineWinner() == -1) {
@@ -38,10 +34,13 @@ public class CheckersTextConsole {
             System.out.println("Player o Wins");
         else if (game.determineWinner() == 1)
             System.out.println("Player x Wins");
-        else if (game.determineWinner() == 2)
-            System.out.println("Tie Game");
     }
 
+    /**
+     * displays text to the console regarding who's turn it is and instructions for moving a piece
+     *
+     * @param game a reference to the current state of the checkers game
+     */
     public static void displayTurn(CheckersLogic game) {
         char player;
         if (game.getTurn() == 1)
@@ -54,6 +53,10 @@ public class CheckersTextConsole {
 
     }
 
+    /**
+     * displays the current state of the game board
+     * @param game A reference to the current checkers game
+     */
     public static void displayBoard(CheckersLogic game) {
         int[][] currentBoard = game.getBoard();
 
@@ -79,6 +82,10 @@ public class CheckersTextConsole {
 
     }
 
+    /**
+     * reads input from the user using Scanner
+     * @return the next line of input from the user
+     */
     public static String getInput() {
         Scanner scnr = new Scanner(System.in);
 

@@ -7,7 +7,7 @@ import java.util.Arrays;
  * Game logic for Checkers Game
  *
  * @author Pryce Holmes
- * @version v1.3
+ * @version v1.4
  */
 public class CheckersLogic {
     /** 2D integer array representing the checkers board,
@@ -241,31 +241,37 @@ public class CheckersLogic {
      *  determines if there is a winner on the current board,
      *  checks if a player is eliminated or blocked
      *
-     * @return -1 if no winner, 0 is O wins, 1 if X wins, 2 if tie
+     * @return -1 if no winner, 0 is O wins, 1 if X wins,
      */
     public int determineWinner() {
         int X_Moves = 0;
         int O_Moves = 0;
+        int X_Pieces = 0;
+        int O_Pieces = 0;
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == -1)
                     continue;
                 else if (board[i][j] == 1) {
+                    X_Pieces++;
                     if (determineMove(i, j))
                         X_Moves++;
                 } else {
+                    O_Pieces++;
                     if (determineMove(i ,j))
                         O_Moves++;
                 }
             }
         }
 
-        if (X_Moves == 0 && O_Moves == 0)
-            return 2;
-        else if (X_Moves == 1 && O_Moves == 0)
+        if (X_Pieces == 0 && O_Pieces > 0)
+            return 0;
+        else if (O_Pieces == 0 && X_Pieces > 0)
             return 1;
-        else if (O_Moves == 1 && X_Moves == 0)
+        else if (X_Moves >= 1 && O_Moves == 0)
+            return 1;
+        else if (O_Moves >= 1 && X_Moves == 0)
             return 0;
         else return -1;
     }
@@ -276,9 +282,6 @@ public class CheckersLogic {
      */
     public int[][] getBoard() {
         return board;
-    }
-    public void setBoard(int[][] newBoard) {
-        board = newBoard;
     }
 
     /**

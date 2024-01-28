@@ -23,8 +23,11 @@ public class CheckersLogic {
      */
     private int turn;
 
+    private final boolean computerGame;
+    private CheckersComputerPlayer computer;
+
     /** default constructor, initializes to a new game board, X's turn */
-    public CheckersLogic() {
+    public CheckersLogic(char input) throws UnsupportedOperationException{
         board = new int[][]{{-1, 0, -1, 0, -1, 0, -1, 0},
                             {0, -1, 0, -1, 0, -1, 0, -1},
                             {-1, 0, -1, 0, -1, 0, -1, 0},
@@ -34,6 +37,16 @@ public class CheckersLogic {
                             {-1, 1, -1, 1, -1, 1, -1, 1},
                             {1, -1, 1, -1, 1, -1, 1, -1}};
         turn = 1;
+        if (input == 'p') {
+            computerGame = false;
+            computer = null;
+        }
+        else if (input == 'c') {
+            computerGame = true;
+            computer = new CheckersComputerPlayer(board);
+        } else {
+            throw new UnsupportedOperationException("player must choose against player or computer");
+        }
     }
 
     /**
@@ -53,12 +66,13 @@ public class CheckersLogic {
         int new_y;
         int new_x;
 
-        if (input.length() < 5)
-            return 0;
-        while (input.length() >= 5) {
-            decoded = decodeMove(input);
-            if (decoded[0] == 0)
+
+            if (input.length() < 5)
                 return 0;
+            while (input.length() >= 5) {
+                decoded = decodeMove(input);
+                if (decoded[0] == 0)
+                    return 0;
 
             old_y = decoded[1];
             old_x = decoded[2];

@@ -16,7 +16,7 @@ public class CheckersTextConsole {
      * @param args
      */
     public static void main(String[] args) {
-        CheckersLogic game = new CheckersLogic();
+        CheckersLogic game = new CheckersLogic('p');
         int logicComms;
         String userIn;
         while (game.determineWinner() == -1) {

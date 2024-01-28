@@ -252,8 +252,12 @@ public class CheckersLogic {
                 else if (board[row+2][column-2] == -1 && board[row+1][column-1] == 1) return true;
             } else {
                 if (board[row + 1][column + 1] == -1 || board[row + 1][column - 1] == -1) return true;
-                if (column > 1) if ((board[row + 2][column - 2] == -1 && board[row + 1][column - 1] == 1)) return true;
-                if (column < 6) if ((board[row + 2][column + 2] == -1 && board[row + 1][column + 1] == 1)) return true;
+                if (column > 1) {
+                    if ((board[row + 2][column - 2] == -1 && board[row + 1][column - 1] == 1)) return true;
+                }
+                if (column < 6) {
+                    if ((board[row + 2][column + 2] == -1 && board[row + 1][column + 1] == 1)) return true;
+                }
             }
         }
         return false;

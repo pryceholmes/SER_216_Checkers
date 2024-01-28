@@ -69,6 +69,7 @@ public class CheckersComputerPlayer {
                         pieceCoords[1] = i;
                         pieceCoords[2] = j;
                         pieceCoords[0] = 1;
+                        break;
                     }
 
                 }
@@ -202,12 +203,13 @@ public class CheckersComputerPlayer {
                     if (column > 1)
                         return ((board[row + 1][column - 1] == -1) || ((board[row+2][column-2] == -1) && (board[row+1][column-1] == 1))
                             || (board[row + 1][column + 1] == -1));
-                    else {
+                    if (column < 6) {
                         return ((board[row + 1][column - 1] == -1) || (board[row + 1][column + 1] == -1) ||
                                 ((board[row+2][column+2] == -1) && (board[row+1][column+1] == 1)));
                     }
                 }
             }
+            return false;
     }
 
 }

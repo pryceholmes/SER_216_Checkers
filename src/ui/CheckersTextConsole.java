@@ -16,16 +16,41 @@ public class CheckersTextConsole {
      * @param args
      */
     public static void main(String[] args) {
-        CheckersLogic game = new CheckersLogic('p');
         int logicComms;
         String userIn;
-        while (game.determineWinner() == -1) {
-            displayBoard(game);
-            displayTurn(game);
+        CheckersLogic game;
+            System.out.println("To start a new game, enter player' if you want to play against another player; " +
+                    " enter 'computer' to play against the computer");
             userIn = getInput();
+            game = new CheckersLogic(userIn);
+
+            // int[][] newGameBoard = new int[][]{{-1, -1, -1, -1, -1, -1, -1, -1},
+                                              // {-1, -1, -1, -1, -1, -1, -1, -1},
+                                              // {-1, -1, -1, -1, -1, -1, -1, -1},
+                                              // {-1, -1, -1, -1, -1, -1, -1, -1},
+                                              // {-1, -1, -1, -1, -1, -1, -1, -1},
+                                              // {-1, -1, 0, -1, -1, -1, -1, -1},
+                                              // {-1, -1, -1, 1, -1, -1, -1, -1},
+                                              // {1, -1, -1, -1, -1, -1, -1, -1}};
+
+            // game.setBoard(newGameBoard);
+
+
+
+        while (game.determineWinner() == -1) {
+
+
+            if (game.getTurn() == 1 || !game.getMode()) {
+                displayBoard(game);
+                displayTurn(game);
+                userIn = getInput();
+
+            } else {
+                userIn = "Cturn";
+            }
             logicComms = game.movePiece(userIn);
 
-            if (logicComms == 0)
+            if (logicComms == 0 && (!game.getMode() || game.getTurn() == 1))
                 System.out.println("invalid move, try again");
 
         }
@@ -91,6 +116,8 @@ public class CheckersTextConsole {
 
         return scnr.nextLine();
     }
+
+
 
 
 

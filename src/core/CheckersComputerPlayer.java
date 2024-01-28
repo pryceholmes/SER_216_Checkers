@@ -35,6 +35,22 @@ public class CheckersComputerPlayer {
     }
 
     /**
+     * sets the value of the last used x coordinate
+     * @param x the x value of the last used piece
+     */
+    public void setLastX(int x) {
+        lastX = x;
+    }
+
+    /**
+     * sets the value of the last used y coordinate
+     * @param y the y value of the last used piece
+     */
+    public void setLastY(int y) {
+        lastY = y;
+    }
+
+    /**
      * finds a computer player piece that has a valid move
      * @return int array containing success value, x coord, and y coord.
      *         If piece was found, array[0] is 1, else array[0] is 0.
@@ -94,24 +110,38 @@ public class CheckersComputerPlayer {
                 moveCoords[0] = 1;
             }
         } else {
-            if ((board[row+2][column-2] == -1) && (board[row+1][column-1] == 1)) {
-                moveCoords[1] = row + 2;
-                moveCoords[2] = column - 2;
-                moveCoords[0] = 1;
-            } else if ((board[row+2][column+2] == -1) && (board[row+1][column+1] == 1)) {
-                moveCoords[1] = row + 2;
-                moveCoords[2] = column + 2;
-                moveCoords[0] = 1;
-            }else if ((board[row + 1][column - 1] == -1)) {
-                moveCoords[1] = row + 1;
-                moveCoords[2] = column - 1;
-                moveCoords[0] = 1;
-            } else if ((board[row + 1][column + 1] == -1)) {
-                moveCoords[1] = row + 1;
-                moveCoords[2] = column + 1;
-                moveCoords[0] = 1;
+            if (column > 1) {
+                if ((board[row + 2][column - 2] == -1) && (board[row + 1][column - 1] == 1)) {
+                    moveCoords[1] = row + 2;
+                    moveCoords[2] = column - 2;
+                    moveCoords[0] = 1;
+                } else if ((board[row + 1][column - 1] == -1)) {
+                    moveCoords[1] = row + 1;
+                    moveCoords[2] = column - 1;
+                    moveCoords[0] = 1;
+                } else if ((board[row + 1][column + 1] == -1)) {
+                    moveCoords[1] = row + 1;
+                    moveCoords[2] = column + 1;
+                    moveCoords[0] = 1;
+                }
+            }
+            if (column < 6) {
+                if ((board[row + 2][column + 2] == -1) && (board[row + 1][column + 1] == 1)) {
+                    moveCoords[1] = row + 2;
+                    moveCoords[2] = column + 2;
+                    moveCoords[0] = 1;
+                } else if ((board[row + 1][column - 1] == -1)) {
+                    moveCoords[1] = row + 1;
+                    moveCoords[2] = column - 1;
+                    moveCoords[0] = 1;
+                } else if ((board[row + 1][column + 1] == -1)) {
+                    moveCoords[1] = row + 1;
+                    moveCoords[2] = column + 1;
+                    moveCoords[0] = 1;
+                }
             }
         }
+
         return moveCoords;
     }
 
@@ -124,13 +154,21 @@ public class CheckersComputerPlayer {
     public int[] movePiece() throws NoSuchElementException {
         int[] decoded = {0, -1, -1, -1, -1};
 
-        int[] findPiece = findPiece();
+        if ((lastY >= 0 && lastY <= 7)
+                && (lastX >= 0 && lastX <= 7)
+                && (board[lastY][lastX] == 0)
+                && (this.hasValidMove(lastY, lastX))) {
+            decoded[1] = lastY;
+            decoded[2] = lastX;
+        } else {
+            int[] findPiece = findPiece();
 
-        if (findPiece[0] == 0)
-            throw new NoSuchElementException("No valid moves were found");
-        else {
-            decoded[1] = findPiece[1];
-            decoded[2] = findPiece[2];
+            if (findPiece[0] == 0)
+                throw new NoSuchElementException("No valid moves were found");
+            else {
+                decoded[1] = findPiece[1];
+                decoded[2] = findPiece[2];
+            }
         }
         int[] moveCoords = findValidMove(decoded[1], decoded[2]);
         if (moveCoords[0] == 0)
@@ -161,8 +199,13 @@ public class CheckersComputerPlayer {
                 } else if (column == 7) {
                     return (board[row + 1][column - 1] == -1) || ((board[row+2][column-2] == -1) && (board[row+1][column-1] == 1));
                 } else {
-                    return ((board[row + 1][column - 1] == -1) || ((board[row+2][column-2] == -1) && (board[row+1][column-1] == 1))
-                            ||(board[row + 1][column + 1] == -1) || ((board[row+2][column+2] == -1) && (board[row+1][column+1] == 1)));
+                    if (column > 1)
+                        return ((board[row + 1][column - 1] == -1) || ((board[row+2][column-2] == -1) && (board[row+1][column-1] == 1))
+                            || (board[row + 1][column + 1] == -1));
+                    else {
+                        return ((board[row + 1][column - 1] == -1) || (board[row + 1][column + 1] == -1) ||
+                                ((board[row+2][column+2] == -1) && (board[row+1][column+1] == 1)));
+                    }
                 }
             }
     }

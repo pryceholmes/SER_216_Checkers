@@ -27,7 +27,7 @@ public class CheckersLogic {
     private CheckersComputerPlayer computer;
 
     /** default constructor, initializes to a new game board, X's turn */
-    public CheckersLogic(char input) throws UnsupportedOperationException{
+    public CheckersLogic(String input) throws UnsupportedOperationException{
         board = new int[][]{{-1, 0, -1, 0, -1, 0, -1, 0},
                             {0, -1, 0, -1, 0, -1, 0, -1},
                             {-1, 0, -1, 0, -1, 0, -1, 0},
@@ -37,11 +37,11 @@ public class CheckersLogic {
                             {-1, 1, -1, 1, -1, 1, -1, 1},
                             {1, -1, 1, -1, 1, -1, 1, -1}};
         turn = 1;
-        if (input == 'p') {
+        if (input.equals("player")) {
             computerGame = false;
             computer = null;
         }
-        else if (input == 'c') {
+        else if (input.equals("computer")) {
             computerGame = true;
             computer = new CheckersComputerPlayer(board);
         } else {
@@ -59,7 +59,7 @@ public class CheckersLogic {
      */
     public int movePiece(String input) {
 
-        int [] decoded;
+        int[] decoded;
         boolean jumpEligible = false;
         int old_y;
         int old_x;
@@ -67,12 +67,18 @@ public class CheckersLogic {
         int new_x;
 
 
+        if (computerGame == false || turn == 1) {
             if (input.length() < 5)
                 return 0;
-            while (input.length() >= 5) {
+        }
+        while (input.length() >= 5) {
+            if (computerGame && turn == 0) {
+                decoded = computer.movePiece();
+            } else {
                 decoded = decodeMove(input);
-                if (decoded[0] == 0)
-                    return 0;
+            }
+            if (decoded[0] == 0)
+                return 0;
 
             old_y = decoded[1];
             old_x = decoded[2];
@@ -93,6 +99,11 @@ public class CheckersLogic {
                 input = input.substring(3);
             } else {
                 input = input.substring(4);
+            }
+
+            if (computerGame && turn == 0) {
+                computer.setLastX(new_x);
+                computer.setLastY(new_y);
             }
         }
         if (turn == 1) turn = 0;
@@ -214,41 +225,38 @@ public class CheckersLogic {
      *
      * @param row row position of piece
      * @param column column position of piece
-     * @return 1 if piece can move, 0 if piece is blocked
+     * @return true if piece can move, false if piece is blocked
      */
     public boolean determineMove(int row, int column) {
         //check if one or both possible moves are occupied or dont exist
         if (board[row][column] == 1) {
             if (row == 0) return false;
-            else {
-                if (column == 0) {
-                    if (board[row - 1][column + 1] != -1)
-                        return false;
-                } else if (column == 7) {
-                    if (board[row - 1][column - 1] != -1)
-                        return false;
-                } else {
-                    if (board[row - 1][column - 1] != -1 && board[row - 1][column + 1] != -1)
-                        return false;
-                }
+            else if (column == 0) {
+                if (board[row-1][column+1] == -1) return true;
+                else if (board[row-2][column+2] == -1 && board[row-1][column+1] == 0) return true;
+            } else if (column == 7) {
+                if (board[row-1][column-1] == -1) return true;
+                else if (board[row-2][column-2] == -1 && board[row-1][column-1] == 0) return true;
+            } else {
+                if (board[row - 1][column + 1] == -1 || board[row - 1][column - 1] == -1) return true;
+                if (column > 1) if ((board[row - 2][column - 2] == -1 && board[row - 1][column - 1] == 0)) return true;
+                if (column < 6) if ((board[row - 2][column + 2] == -1 && board[row - 1][column + 1] == 0)) return true;
             }
         } else if (board[row][column] == 0) {
             if (row == 7) return false;
-            else {
-                if (column == 0) {
-                    if (board[row + 1][column + 1] != -1)
-                        return false;
-                } else if (column == 7) {
-                    if (board[row + 1][column - 1] != -1)
-                        return false;
-                } else {
-                    if (board[row+1][column+1] != -1 && board[row+1][column-1] != -1)
-                        return false;
-                }
-
+            else if (column == 0) {
+                if (board[row+1][column+1] == -1) return true;
+                else if (board[row+2][column+2] == -1 && board[row+1][column+1] == 1) return true;
+            } else if (column == 7) {
+                if (board[row+1][column-1] == -1) return true;
+                else if (board[row+2][column-2] == -1 && board[row+1][column-1] == 1) return true;
+            } else {
+                if (board[row + 1][column + 1] == -1 || board[row + 1][column - 1] == -1) return true;
+                if (column > 1) if ((board[row + 2][column - 2] == -1 && board[row + 1][column - 1] == 1)) return true;
+                if (column < 6) if ((board[row + 2][column + 2] == -1 && board[row + 1][column + 1] == 1)) return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -304,6 +312,14 @@ public class CheckersLogic {
      */
     public int getTurn() {
         return turn;
+    }
+
+    public boolean getMode() {
+        return computerGame;
+    }
+
+    public void setBoard(int[][] newBoard) {
+        board = newBoard;
     }
 
 

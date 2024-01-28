@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Finished Project &#10;v1.4">
-      <change afterPath="$PROJECT_DIR$/src/core/CheckersComputerPlayer.java" afterDir="false" />
+    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Deliverable 3, CheckersComputerPlayer written. &#10;need to implement with system">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/CheckersComputerPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CheckersComputerPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/CheckersLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CheckersLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ui/CheckersTextConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/CheckersTextConsole.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,22 +56,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CheckersTextConsole.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/pryce/IdeaProjects/SER216_ProjectCheckers/src/Main.java&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CheckersTextConsole.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/pryce/IdeaProjects/SER216_ProjectCheckers/src/Main.java",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -92,7 +94,9 @@
       <workItem from="1705969033975" duration="2711000" />
       <workItem from="1705972657702" duration="625000" />
       <workItem from="1706113280199" duration="13000" />
-      <workItem from="1706462196617" duration="4665000" />
+      <workItem from="1706462196617" duration="6400000" />
+      <workItem from="1706468940394" duration="7000" />
+      <workItem from="1706473447792" duration="5448000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit &#10;v0.0">
       <option name="closed" value="true" />
@@ -150,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705971701882</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Deliverable 3, CheckersComputerPlayer written. &#10;need to implement with system">
+      <option name="closed" value="true" />
+      <created>1706468904611</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1706468904611</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +175,18 @@
     <MESSAGE value="Started ui &#10;v1.2" />
     <MESSAGE value="fixed bugs, need to finish JAVADOC&#10;v1.3" />
     <MESSAGE value="Finished Project &#10;v1.4" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished Project &#10;v1.4" />
+    <MESSAGE value="Deliverable 3, CheckersComputerPlayer written. &#10;need to implement with system" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deliverable 3, CheckersComputerPlayer written. &#10;need to implement with system" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ui/CheckersTextConsole.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

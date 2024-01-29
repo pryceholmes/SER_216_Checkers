@@ -65,7 +65,7 @@ public class CheckersComputerPlayer {
                 else if (board[i][j] == 1) {
                     continue;
                 } else {
-                    if (hasValidMove(i, j)) {
+                    if (findValidMove(i, j)[0] == 1) {
                         pieceCoords[1] = i;
                         pieceCoords[2] = j;
                         pieceCoords[0] = 1;
@@ -81,65 +81,103 @@ public class CheckersComputerPlayer {
     /**
      * given a piece, returns the coords of where to move this piece to. Assumes piece is computer piece.
      *
-     * @param row row number of given piece.
+     * @param row    row number of given piece.
      * @param column column number of given piece.
      * @return int[] containing success value, y coord, and x coord.
-     *               If valid move was found, array[0] is 1, else array[0] is 0.
+     * If valid move was found, array[0] is 1, else array[0] is 0.
      */
     public int[] findValidMove(int row, int column) {
         int[] moveCoords = {0, 0, 0};
 
+        int yDiag = row + 1;
+        int yDoubDiag = row + 2;
+        int xDiagL = column - 1;
+        int xDiagR = column + 1;
+        int xDoubDiagL = column - 2;
+        int xDoubDiagR = column + 2;
+
+        // if piece is in last row, return false
         if (row == 7) return moveCoords;
+
+        // if piece is not near edge, check all move cases
+        if (row > 1 && row < 6 && column > 1 && column < 6) {
+            // check if piece can move 1 space diag
+            if (board[yDiag][xDiagL] == -1){
+                moveCoords[1] = yDiag;
+                moveCoords[2] = xDiagL;
+                moveCoords[0] = 1;
+                return moveCoords;
+            } else if (board[yDiag][xDiagR] == -1) {
+                moveCoords[1] = yDiag;
+                moveCoords[2] = xDiagR;
+                moveCoords[0] = 1;
+                return moveCoords;
+            }
+            // check if piece can capture a piece to the left
+            else if (board[yDoubDiag][xDoubDiagL] == -1 && board[yDiag][xDiagL] == 1) {
+                moveCoords[1] = yDoubDiag;
+                moveCoords[2] = xDoubDiagL;
+                moveCoords[0] = 1;
+                return moveCoords;
+            }
+            // check if piece can capture a piece to the left
+            else if (board[yDoubDiag][xDoubDiagR] == -1 && board[yDiag][xDiagR] == 1) {
+                moveCoords[1] = yDoubDiag;
+                moveCoords[2] = xDoubDiagR;
+                moveCoords[0] = 1;
+                return moveCoords;
+            }
+        }
+        // if piece is in second to last row or second to last columns, can only do single jumps
+        else if (row == 6 || column == 1 || column == 6) {
+            if (board[yDiag][xDiagL] == -1){
+                moveCoords[1] = yDiag;
+                moveCoords[2] = xDiagL;
+                moveCoords[0] = 1;
+                return moveCoords;
+            } else if (board[yDiag][xDiagR] == -1) {
+                moveCoords[1] = yDiag;
+                moveCoords[2] = xDiagR;
+                moveCoords[0] = 1;
+                return moveCoords;
+            }
+        }
+
+        // if piece is not in last two rows, but in column zero can only move right, single or double
         else if (column == 0) {
-            if ((board[row + 2][column + 2] == -1) && (board[row + 1][column + 1] == 1)) {
-                moveCoords[1] = row + 2;
-                moveCoords[2] = column + 2;
+            // check if piece can move 1 space diag right
+            if (board[yDiag][xDiagR] == -1) {
+                moveCoords[1] = yDiag;
+                moveCoords[2] = xDiagR;
                 moveCoords[0] = 1;
-            } else if (board[row + 1][column + 1] == -1) {
-                moveCoords[1] = row + 1;
-                moveCoords[2] = column + 1;
-                moveCoords[0] = 1;
+                return moveCoords;
             }
-        } else if (column == 7) {
-            if ((board[row + 2][column - 2] == -1) && (board[row + 1][column - 1] == 1)) {
-                moveCoords[1] = row + 2;
-                moveCoords[2] = column - 2;
+
+            // check if piece can capture a piece to the right
+            else if (board[yDoubDiag][xDoubDiagR] == -1 && board[yDiag][xDiagR] == 1) {
+                moveCoords[1] = yDoubDiag;
+                moveCoords[2] = xDoubDiagR;
                 moveCoords[0] = 1;
-            } else if (board[row + 1][column - 1] == -1) {
-                moveCoords[1] = row + 1;
-                moveCoords[2] = column - 1;
+                return moveCoords;
+            }
+        }
+
+        // if piece is not in last two rows, but in column 7 can only move left, single or double
+        else if (column == 7) {
+            //check if piece can move 1 space diag left
+            if (board[yDiag][xDiagL] == -1) {
+                moveCoords[1] = yDiag;
+                moveCoords[2] = xDiagL;
                 moveCoords[0] = 1;
+                return moveCoords;
             }
-        } else {
-            if (column > 1) {
-                if ((board[row + 2][column - 2] == -1) && (board[row + 1][column - 1] == 1)) {
-                    moveCoords[1] = row + 2;
-                    moveCoords[2] = column - 2;
-                    moveCoords[0] = 1;
-                } else if ((board[row + 1][column - 1] == -1)) {
-                    moveCoords[1] = row + 1;
-                    moveCoords[2] = column - 1;
-                    moveCoords[0] = 1;
-                } else if ((board[row + 1][column + 1] == -1)) {
-                    moveCoords[1] = row + 1;
-                    moveCoords[2] = column + 1;
-                    moveCoords[0] = 1;
-                }
-            }
-            if (column < 6) {
-                if ((board[row + 2][column + 2] == -1) && (board[row + 1][column + 1] == 1)) {
-                    moveCoords[1] = row + 2;
-                    moveCoords[2] = column + 2;
-                    moveCoords[0] = 1;
-                } else if ((board[row + 1][column - 1] == -1)) {
-                    moveCoords[1] = row + 1;
-                    moveCoords[2] = column - 1;
-                    moveCoords[0] = 1;
-                } else if ((board[row + 1][column + 1] == -1)) {
-                    moveCoords[1] = row + 1;
-                    moveCoords[2] = column + 1;
-                    moveCoords[0] = 1;
-                }
+
+            //check if piece can capture a piece to the left
+            if (board[yDoubDiag][xDoubDiagL] == -1 && board[yDiag][xDiagL] == 1) {
+                moveCoords[1] = yDoubDiag;
+                moveCoords[2] = xDoubDiagL;
+                moveCoords[0] = 1;
+                return moveCoords;
             }
         }
 
@@ -158,7 +196,7 @@ public class CheckersComputerPlayer {
         if ((lastY >= 0 && lastY <= 7)
                 && (lastX >= 0 && lastX <= 7)
                 && (board[lastY][lastX] == 0)
-                && (this.hasValidMove(lastY, lastX))) {
+                && (this.findValidMove(lastY, lastX)[0] == 1)) {
             decoded[1] = lastY;
             decoded[2] = lastX;
         } else {
@@ -184,32 +222,7 @@ public class CheckersComputerPlayer {
 
     }
 
-    /**
-     * Given a position of a piece, returns if the piece has a valid move
-     *
-     * @param row row position of piece
-     * @param column column position of piece
-     * @return true if piece can move, false if piece is blocked
-     */
-    public boolean hasValidMove(int row, int column) {
-        //check if one or both possible moves are occupied or don't exist
-            if (row == 7) return false;
-            else {
-                if (column == 0) {
-                    return (board[row + 1][column + 1] == -1) || ((board[row+2][column+2] == -1) && (board[row+1][column+1] == 1));
-                } else if (column == 7) {
-                    return (board[row + 1][column - 1] == -1) || ((board[row+2][column-2] == -1) && (board[row+1][column-1] == 1));
-                } else {
-                    if (column > 1)
-                        return ((board[row + 1][column - 1] == -1) || ((board[row+2][column-2] == -1) && (board[row+1][column-1] == 1))
-                            || (board[row + 1][column + 1] == -1));
-                    if (column < 6) {
-                        return ((board[row + 1][column - 1] == -1) || (board[row + 1][column + 1] == -1) ||
-                                ((board[row+2][column+2] == -1) && (board[row+1][column+1] == 1)));
-                    }
-                }
-            }
-            return false;
+    public void updateBoard(int[][] updatedBoard) {
+        board = updatedBoard;
     }
-
 }

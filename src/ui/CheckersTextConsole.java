@@ -26,11 +26,11 @@ public class CheckersTextConsole {
 
             int[][] newGameBoard = new int[][]{{-1, 0, -1, 0, -1, 0, -1, 0},
                                                {0, -1, 0, -1, 0, -1, 0, -1},
-                                               {-1, 0, -1, -1, -1, -1, -1, -1},
-                                               {-1, -1, 1, -1, -1, -1, -1, -1},
-                                               {-1, -1, -1, 1, -1, 0, -1, 0},
-                                               {-1, -1, -1, -1, 1, -1, 1, -1},
-                                               {-1, 1, -1, 1, -1, -1, -1, 1},
+                                               {-1, 0, -1, 0, -1, 0, -1, 0},
+                                               {-1, -1, -1, -1, -1, -1, -1, -1},
+                                               {-1, -1, -1, -1, -1, -1, -1, -1},
+                                               {1, -1, 1, -1, 1, -1, 1, -1},
+                                               {-1, 1, -1, 1, -1, 1, -1, 1},
                                                {1, -1, 1, -1, 1, -1, 1, -1}};
 
             game.setBoard(newGameBoard);
@@ -46,6 +46,8 @@ public class CheckersTextConsole {
                 userIn = getInput();
 
             } else {
+                displayBoard(game);
+                System.out.println("It is the computers turn, one moment while they pick their move.");
                 userIn = "Cturn";
             }
             logicComms = game.movePiece(userIn);

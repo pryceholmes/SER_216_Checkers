@@ -106,6 +106,7 @@ public class CheckersLogic {
                 computer.setLastY(new_y);
             }
         }
+        computer.updateBoard(board);
         if (turn == 1) turn = 0;
         else if (turn == 0) turn = 1;
         return 1;
@@ -228,41 +229,125 @@ public class CheckersLogic {
      * @return true if piece can move, false if piece is blocked
      */
     public boolean determineMove(int row, int column) {
-        //check if one or both possible moves are occupied or dont exist
-        if (board[row][column] == 1) {
-            if (row == 0) return false;
-            else if (column == 0) {
-                if (board[row-1][column+1] == -1) return true;
-                else if (board[row-2][column+2] == -1 && board[row-1][column+1] == 0) return true;
-            } else if (column == 7) {
-                if (board[row-1][column-1] == -1) return true;
-                else if (board[row-2][column-2] == -1 && board[row-1][column-1] == 0) return true;
-            } else {
-                if (board[row - 1][column + 1] == -1 || board[row - 1][column - 1] == -1) return true;
-                if (column > 1) if ((board[row - 2][column - 2] == -1 && board[row - 1][column - 1] == 0)) return true;
-                if (column < 6) if ((board[row - 2][column + 2] == -1 && board[row - 1][column + 1] == 0)) return true;
-            }
-        } else if (board[row][column] == 0) {
-            if (row == 7) return false;
-            else if (column == 0) {
-                if (board[row+1][column+1] == -1) return true;
-                else if (board[row+2][column+2] == -1 && board[row+1][column+1] == 1) return true;
-            } else if (column == 7) {
-                if (board[row+1][column-1] == -1) return true;
-                else if (board[row+2][column-2] == -1 && board[row+1][column-1] == 1) return true;
-            } else {
-                if (board[row + 1][column + 1] == -1 || board[row + 1][column - 1] == -1) return true;
-                if (column > 1) {
-                    if ((board[row + 2][column - 2] == -1 && board[row + 1][column - 1] == 1)) return true;
-                }
-                if (column < 6) {
-                    if ((board[row + 2][column + 2] == -1 && board[row + 1][column + 1] == 1)) return true;
-                }
-            }
-        }
-        return false;
+        boolean success = false;
+
+        if (board[row][column] == 1)
+            success = determineMoveX(row,column);
+        else if (board[row][column] == 0)
+            success = determineMoveO(row, column);
+
+        return success;
     }
 
+    /**
+     * Helper method for determine move funtion, checks for only x case moves
+     * @param row row value for piece to move
+     * @param column column value for piece to move
+     * @return true if piece can move, false if it cannot
+     */
+    private boolean determineMoveX(int row, int column) {
+        int yDiag = row - 1;
+        int yDoubDiag = row - 2;
+        int xDiagL = column - 1;
+        int xDiagR = column + 1;
+        int xDoubDiagL = column - 2;
+        int xDoubDiagR = column + 2;
+
+        // if piece is in last row, return false
+        if (row == 0) return false;
+
+        // if piece is not near edge, check all move cases
+        if (row > 1 && row < 6 && column > 1 && column < 6) {
+            // check if can move 1 space diag
+            if (board[yDiag][xDiagL] == -1 || board[yDiag][xDiagR] == -1) return true;
+
+            // check if can capture a piece to the left
+            if (board[yDoubDiag][xDoubDiagL] == -1 && board[yDiag][xDiagL] == 0) return true;
+
+            // check if can capture a piece to the left
+            if (board[yDoubDiag][xDoubDiagR] == -1 && board[yDiag][xDiagR] == 0) return true;
+        }
+        // if piece is in second to last row or second to last columns, can only do single jumps
+        else if (row == 1 || column == 1 || column == 6) {
+            if (board[yDiag][xDiagL] == -1 || board[yDiag][xDiagR] == -1) return true;
+        }
+
+        // if piece not in last two rows, but in column zero can only move right, single or double
+        else if (column == 0) {
+            // check if can move 1 space diag right
+            if (board[yDiag][xDiagR] == -1) return true;
+
+            // check if can capture a piece to the right
+            if (board[yDoubDiag][xDoubDiagR] == -1 && board[yDiag][xDiagR] == 0) return true;
+        }
+
+        // if piece is not in last two rows, but in column 7 can only move left, single or double
+        else if (column == 7) {
+            //check if can move 1 space diag left
+            if (board[yDiag][xDiagL] == -1) return true;
+
+            //check if can capture a piece to the left
+            if (board[yDoubDiag][xDoubDiagL] == -1 && board[yDiag][xDiagL] == 0) return true;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Helper method for determine move method, checks only o pieces
+     * @param row row value for piece to move
+     * @param column column value for piece to move
+     * @return true if piece can move, false if not
+     */
+    private boolean determineMoveO(int row, int column) {
+        int yDiag = row + 1;
+        int yDoubDiag = row + 2;
+        int xDiagL = column - 1;
+        int xDiagR = column + 1;
+        int xDoubDiagL = column - 2;
+        int xDoubDiagR = column + 2;
+
+        // if piece is in last row, return false
+        if (row == 7) return false;
+
+        // if piece is not near edge, check all move cases
+        if (row > 1 && row < 6 && column > 1 && column < 6) {
+            // check if can move 1 space diag
+            if (board[yDiag][xDiagL] == -1 || board[yDiag][xDiagR] == -1) return true;
+
+            // check if can capture a piece to the left
+            if (board[yDoubDiag][xDoubDiagL] == -1 && board[yDiag][xDiagL] == 1) return true;
+
+            // check if can capture a piece to the left
+            if (board[yDoubDiag][xDoubDiagR] == -1 && board[yDiag][xDiagR] == 1) return true;
+        }
+        // if piece is in second to last row or second to last columns, can only do single jumps
+        else if (row == 6 || column == 1 || column == 6) {
+            if (board[yDiag][xDiagL] == -1 || board[yDiag][xDiagR] == -1) return true;
+        }
+
+        // if piece not in last two rows, but in column zero can only move right, single or double
+        else if (column == 0) {
+            // check if can move 1 space diag right
+            if (board[yDiag][xDiagR] == -1) return true;
+
+            // check if can capture a piece to the right
+            if (board[yDoubDiag][xDoubDiagR] == -1 && board[yDiag][xDiagR] == 1) return true;
+        }
+
+        // if piece is not in last two rows, but in column 7 can only move left, single or double
+        else if (column == 7) {
+            //check if can move 1 space diag left
+            if (board[yDiag][xDiagL] == -1) return true;
+
+            //check if can capture a piece to the left
+            if (board[yDoubDiag][xDoubDiagL] == -1 && board[yDiag][xDiagL] == 1) return true;
+        }
+
+        return false;
+
+    }
     /**
      *  determines if there is a winner on the current board,
      *  checks if a player is eliminated or blocked

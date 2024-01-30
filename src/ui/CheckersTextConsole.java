@@ -1,6 +1,8 @@
 package ui;
 
 import core.CheckersLogic;
+
+
 import java.util.Scanner;
 
 /**
@@ -19,23 +21,16 @@ public class CheckersTextConsole {
         int logicComms;
         String userIn;
         CheckersLogic game;
-            System.out.println("To start a new game, enter player' if you want to play against another player; " +
-                    " enter 'computer' to play against the computer");
-            userIn = getInput();
+            try {
+                // catch if user didn't clarify correct input
+                userIn = startNewGame();
+                if (!userIn.equals("player") && !userIn.equals("computer"))
+                    throw new UnsupportedOperationException("invalid game mode");
+            } catch (UnsupportedOperationException ex) {
+                System.out.println("Sorry, this is not a valid game mode. Please rerun the program to try again.");
+                throw ex;
+            }
             game = new CheckersLogic(userIn);
-
-            int[][] newGameBoard = new int[][]{{-1, 0, -1, 0, -1, 0, -1, 0},
-                                               {0, -1, 0, -1, 0, -1, 0, -1},
-                                               {-1, 0, -1, 0, -1, 0, -1, 0},
-                                               {-1, -1, -1, -1, -1, -1, -1, -1},
-                                               {-1, -1, -1, -1, -1, -1, -1, -1},
-                                               {1, -1, 1, -1, 1, -1, 1, -1},
-                                               {-1, 1, -1, 1, -1, 1, -1, 1},
-                                               {1, -1, 1, -1, 1, -1, 1, -1}};
-
-            game.setBoard(newGameBoard);
-
-
 
         while (game.determineWinner() == -1) {
 
@@ -43,15 +38,28 @@ public class CheckersTextConsole {
             if (game.getTurn() == 1 || !game.getMode()) {
                 displayBoard(game);
                 displayTurn(game);
-                userIn = getInput();
+                try {
+                    // try to get input from user
+                    userIn = getInput();
+                } catch (Exception ex) {
+                    // if exception is thrown from input, cause game to return an invalid move
+                    // this will give user the option to try again
+                    userIn = "invalid";
+                }
 
             } else {
                 displayBoard(game);
                 System.out.println("It is the computers turn, one moment while they pick their move.");
                 userIn = "Cturn";
             }
-            logicComms = game.movePiece(userIn);
-
+            try {
+                // try to move piece for user
+                logicComms = game.movePiece(userIn);
+            } catch (Exception ex) {
+                // if exception is throw such as invalid move or ArrayOutOfBounds than catch
+                // and let user try again by forcing invalid input in next if statement
+                logicComms = 0;
+            }
             if (logicComms == 0 && (!game.getMode() || game.getTurn() == 1))
                 System.out.println("invalid move, try again");
 
@@ -117,6 +125,16 @@ public class CheckersTextConsole {
         Scanner scnr = new Scanner(System.in);
 
         return scnr.nextLine();
+    }
+
+    /**
+     * gathers input for game mode to start a new instance of the checkers game
+     * @return user input of game mode to start playing
+     */
+    public static String startNewGame() {
+        System.out.println("To start a new game, enter 'player' if you want to play against another player; " +
+                " enter 'computer' to play against the computer");
+        return getInput();
     }
 
 

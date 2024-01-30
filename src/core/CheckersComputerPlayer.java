@@ -71,7 +71,6 @@ public class CheckersComputerPlayer {
                         pieceCoords[0] = 1;
                         break;
                     }
-
                 }
             }
         }
@@ -100,7 +99,7 @@ public class CheckersComputerPlayer {
         if (row == 7) return moveCoords;
 
         // if piece is not near edge, check all move cases
-        if (row > 1 && row < 6 && column > 1 && column < 6) {
+        if (row < 6 && column > 1 && column < 6) {
             // check if piece can move 1 space diag
             if (board[yDiag][xDiagL] == -1){
                 moveCoords[1] = yDiag;
@@ -130,16 +129,21 @@ public class CheckersComputerPlayer {
         }
         // if piece is in second to last row or second to last columns, can only do single jumps
         else if (row == 6 || column == 1 || column == 6) {
-            if (board[yDiag][xDiagL] == -1){
-                moveCoords[1] = yDiag;
-                moveCoords[2] = xDiagL;
-                moveCoords[0] = 1;
-                return moveCoords;
-            } else if (board[yDiag][xDiagR] == -1) {
-                moveCoords[1] = yDiag;
-                moveCoords[2] = xDiagR;
-                moveCoords[0] = 1;
-                return moveCoords;
+            if (column < 7) {
+                if (board[yDiag][xDiagR] == -1) {
+                    moveCoords[1] = yDiag;
+                    moveCoords[2] = xDiagR;
+                    moveCoords[0] = 1;
+                    return moveCoords;
+                }
+            }
+            if (column > 0) {
+                if (board[yDiag][xDiagL] == -1) {
+                    moveCoords[1] = yDiag;
+                    moveCoords[2] = xDiagL;
+                    moveCoords[0] = 1;
+                    return moveCoords;
+                }
             }
         }
 
@@ -222,6 +226,10 @@ public class CheckersComputerPlayer {
 
     }
 
+    /**
+     * updates the computers game board to the given input
+     * @param updatedBoard the game board to update this classes version of the game board to
+     */
     public void updateBoard(int[][] updatedBoard) {
         board = updatedBoard;
     }

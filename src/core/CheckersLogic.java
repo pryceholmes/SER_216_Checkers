@@ -23,7 +23,14 @@ public class CheckersLogic {
      */
     private int turn;
 
+    /**
+     * a variable to track the game mode the user is currently playing, player or computer.
+     */
     private final boolean computerGame;
+
+    /**
+     * an instance of the computer player who is playing the game against the user, if this game mode is selected
+     */
     private CheckersComputerPlayer computer;
 
     /** default constructor, initializes to a new game board, X's turn */
@@ -41,11 +48,9 @@ public class CheckersLogic {
             computerGame = false;
             computer = null;
         }
-        else if (input.equals("computer")) {
+        else {
             computerGame = true;
             computer = new CheckersComputerPlayer(board);
-        } else {
-            throw new UnsupportedOperationException("player must choose against player or computer");
         }
     }
 
@@ -257,7 +262,7 @@ public class CheckersLogic {
         if (row == 0) return false;
 
         // if piece is not near edge, check all move cases
-        if (row > 1 && row < 6 && column > 1 && column < 6) {
+        if (row > 1 && column > 1 && column < 6) {
             // check if can move 1 space diag
             if (board[yDiag][xDiagL] == -1 || board[yDiag][xDiagR] == -1) return true;
 
@@ -269,7 +274,10 @@ public class CheckersLogic {
         }
         // if piece is in second to last row or second to last columns, can only do single jumps
         else if (row == 1 || column == 1 || column == 6) {
-            if (board[yDiag][xDiagL] == -1 || board[yDiag][xDiagR] == -1) return true;
+            if (column < 7)
+                if (board[yDiag][xDiagR] == -1) return true;
+            if (column > 0)
+                if (board[yDiag][xDiagL] == -1) return true;
         }
 
         // if piece not in last two rows, but in column zero can only move right, single or double
@@ -312,7 +320,7 @@ public class CheckersLogic {
         if (row == 7) return false;
 
         // if piece is not near edge, check all move cases
-        if (row > 1 && row < 6 && column > 1 && column < 6) {
+        if (row < 6 && column > 1 && column < 6) {
             // check if can move 1 space diag
             if (board[yDiag][xDiagL] == -1 || board[yDiag][xDiagR] == -1) return true;
 
@@ -324,7 +332,10 @@ public class CheckersLogic {
         }
         // if piece is in second to last row or second to last columns, can only do single jumps
         else if (row == 6 || column == 1 || column == 6) {
-            if (board[yDiag][xDiagL] == -1 || board[yDiag][xDiagR] == -1) return true;
+            if (column < 7)
+                if (board[yDiag][xDiagR] == -1) return true;
+            if (column > 0)
+                if (board[yDiag][xDiagL] == -1) return true;
         }
 
         // if piece not in last two rows, but in column zero can only move right, single or double
@@ -403,13 +414,14 @@ public class CheckersLogic {
         return turn;
     }
 
+    /**
+     * returns the game mode that the user selected
+     * @return true if playing against computer, false if playing against another person
+     */
     public boolean getMode() {
         return computerGame;
     }
 
-    public void setBoard(int[][] newBoard) {
-        board = newBoard;
-    }
 
 
 

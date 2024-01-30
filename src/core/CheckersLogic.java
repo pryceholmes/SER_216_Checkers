@@ -111,7 +111,8 @@ public class CheckersLogic {
                 computer.setLastY(new_y);
             }
         }
-        computer.updateBoard(board);
+        if (computerGame)
+            computer.updateBoard(board);
         if (turn == 1) turn = 0;
         else if (turn == 0) turn = 1;
         return 1;

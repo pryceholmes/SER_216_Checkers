@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Almost done debugging... issue with checking for valid move">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/CheckersComputerPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CheckersComputerPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/CheckersLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/CheckersLogic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui/CheckersTextConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/CheckersTextConsole.java" afterDir="false" />
-    </list>
+    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Deliverable 3 Finished" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -100,7 +94,7 @@
       <workItem from="1706473447792" duration="7158000" />
       <workItem from="1706480988930" duration="1143000" />
       <workItem from="1706566602021" duration="5182000" />
-      <workItem from="1706574856638" duration="6507000" />
+      <workItem from="1706574856638" duration="6870000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit &#10;v0.0">
       <option name="closed" value="true" />
@@ -190,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706571924968</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Deliverable 3 Finished">
+      <option name="closed" value="true" />
+      <created>1706581722601</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1706581722601</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,6 +208,7 @@
     <MESSAGE value="Deliverable 3, CheckersComputerPlayer written. &#10;need to implement with system" />
     <MESSAGE value="Deliverable 3, CheckersComputerPlayer almost done debugging" />
     <MESSAGE value="Almost done debugging... issue with checking for valid move" />
-    <option name="LAST_COMMIT_MESSAGE" value="Almost done debugging... issue with checking for valid move" />
+    <MESSAGE value="Deliverable 3 Finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deliverable 3 Finished" />
   </component>
 </project>

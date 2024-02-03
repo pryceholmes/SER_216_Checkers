@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Deliverable 3 Finished" />
+    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Deliverable 3 Finished, for real">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/lib1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SER216_ProjectCheckers.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SER216_ProjectCheckers.iml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,19 +61,38 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.CheckersTextConsole.executor": "Run",
+    "Application.Javafx.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.TicTacToe.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/pryce/Downloads/openjfx-21.0.2_windows-x64_bin-sdk/javafx-sdk-21.0.2/lib",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "onboarding.tips.debug.path": "C:/Users/pryce/IdeaProjects/SER216_ProjectCheckers/src/Main.java",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pathVariables",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="TicTacToe" />
+      <module name="SER216_ProjectCheckers" />
+      <option name="VM_PARAMETERS" value="--module-path ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -94,7 +120,12 @@
       <workItem from="1706473447792" duration="7158000" />
       <workItem from="1706480988930" duration="1143000" />
       <workItem from="1706566602021" duration="5182000" />
-      <workItem from="1706574856638" duration="6870000" />
+      <workItem from="1706574856638" duration="7321000" />
+      <workItem from="1706582700946" duration="71000" />
+      <workItem from="1706582807634" duration="340000" />
+      <workItem from="1706583276672" duration="24000" />
+      <workItem from="1706719129477" duration="23000" />
+      <workItem from="1706999595103" duration="937000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit &#10;v0.0">
       <option name="closed" value="true" />
@@ -192,7 +223,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706581722601</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Deliverable 3 Finished, for real">
+      <option name="closed" value="true" />
+      <created>1706582139904</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1706582139904</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +248,7 @@
     <MESSAGE value="Deliverable 3, CheckersComputerPlayer almost done debugging" />
     <MESSAGE value="Almost done debugging... issue with checking for valid move" />
     <MESSAGE value="Deliverable 3 Finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="Deliverable 3 Finished" />
+    <MESSAGE value="Deliverable 3 Finished, for real" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deliverable 3 Finished, for real" />
   </component>
 </project>

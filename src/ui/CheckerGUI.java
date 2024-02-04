@@ -2,42 +2,128 @@ package ui;
 
 import core.CheckersLogic;
 import javafx.application.Application;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.HPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Ellipse;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font;
+import javafx.scene.control.Button;
 
+import java.awt.*;
 import java.util.Scanner;
 
 public class CheckerGUI extends Application {
 
     private static CheckersLogic game;
     private int[][] board;
+    private String userMove = "";
+    @Override
+    public void start(Stage primaryStage) {
+        boolean UIMode = startGame();
+        if (!UIMode) {
+            new CheckersTextConsole().play(game);
+        } else {
+            Cell[][] guiBoard = new Cell[8][8];
 
-    private String userIn;
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[i].length; j++) {
+                    int row = 8 - i;
+                    char column = (char) (j + 'a');
+
+                    if (board[i][j] == -1) {
+                        if (i % 2 == j % 2)
+                            guiBoard[i][j] = new Cell("-fx-background-color: papayawhip", row, column);
+                        else
+                            guiBoard[i][j] = new Cell("-fx-background-color: snow", row, column);
+                        guiBoard[i][j].setToken(-1);
+                    } else if (board[i][j] == 1) {
+                        if (i % 2 == j % 2)
+                            guiBoard[i][j] = new Cell("-fx-background-color: papayawhip", row, column);
+                        else
+                            guiBoard[i][j] = new Cell("-fx-background-color: snow", row, column);
+                        guiBoard[i][j].setToken(1);
+                    } else {
+                        if (i % 2 == j % 2)
+                            guiBoard[i][j] = new Cell("-fx-background-color: papayawhip", row, column);
+                        else
+                            guiBoard[i][j] = new Cell("-fx-background-color: snow", row, column);
+                        guiBoard[i][j].setToken(0);
+                    }
+                }
+            }
+            GridPane boardPane = new GridPane();
+            boardPane.setAlignment(Pos.TOP_CENTER);
+            boardPane.setPadding(new Insets(10, 10, 10, 10));
+            for (int i = 0; i < guiBoard.length; i++)
+                for (int j = 0; j < guiBoard[i].length; j++)
+                    boardPane.add(guiBoard[i][j], j, i);
+
+
+            Text t = new Text();
+            t.setText("This is an example text to show to the user");
+            t.setFont(Font.font(15));
+
+
+            Button endGame = new Button("End Game");
+            endGame.setPrefSize(100, 30);
+
+
+            Button submitMove = new Button("Submit Move");
+            submitMove.setPrefSize(100, 30);
+
+            VBox buttons = new VBox();
+            buttons.getChildren().addAll(submitMove, endGame);
+            buttons.setSpacing(15);
+
+
+
+            BorderPane bottomPane = new BorderPane();
+            bottomPane.setTop(t);
+            bottomPane.setRight(buttons);
+            bottomPane.setPadding(new Insets(10, 25, 15, 100));
+
+
+            VBox genPane = new VBox();
+            genPane.getChildren().addAll(boardPane, bottomPane);
+            genPane.setAlignment(Pos.TOP_CENTER);
+
+
+            // Create a scene and place it in the stage
+            Scene scene = new Scene(genPane, 600, 800);
+            primaryStage.setTitle("Checkers GUI"); // Set the stage title
+            primaryStage.setScene(scene); // Place the scene in the stage
+            primaryStage.show(); // Display the stage
+        }
+    }
 
     class Cell extends Pane {
         // Token used for this cell
         private int token = -1;
+        int row;
+        char column;
 
-        public Cell(String color) {
+        public Cell(String color, int row, char column) {
             setStyle("-fx-border-color: black;" + color);
-            //setStyle(color);
             this.setPrefSize(75, 75);
+            this.row = row;
+            this.column = column;
+            this.setOnMouseClicked(e -> handlePieceClick(e));
+
         }
+
+        public int getRow() {return row;}
+
+        public char getColumn() {return column;}
 
         /**
          * Return token
@@ -69,60 +155,23 @@ public class CheckerGUI extends Application {
             }
         }
     }
-    @Override
-    public void start(Stage primaryStage) {
-        boolean UIMode = startGame();
-        if (!UIMode) {
-            new CheckersTextConsole().play(game);
-        } else {
-            Cell[][] guiBoard = new Cell[8][8];
 
-            for (int i = 0; i < board.length; i++) {
-                for (int j = 0; j < board[i].length; j++) {
-                    if (board[i][j] == -1) {
-                        if (i % 2 == j % 2)
-                            guiBoard[i][j] = new Cell("-fx-background-color: papayawhip");
-                        else
-                            guiBoard[i][j] = new Cell("-fx-background-color: snow");
-                        guiBoard[i][j].setToken(-1);
-                    } else if (board[i][j] == 1) {
-                        if (i % 2 == j % 2)
-                            guiBoard[i][j] = new Cell("-fx-background-color: papayawhip");
-                        else
-                            guiBoard[i][j] = new Cell("-fx-background-color: snow");
-                        guiBoard[i][j].setToken(1);
-                    } else {
-                        if (i % 2 == j % 2)
-                            guiBoard[i][j] = new Cell("-fx-background-color: papayawhip");
-                        else
-                            guiBoard[i][j] = new Cell("-fx-background-color: snow");
-                        guiBoard[i][j].setToken(0);
-                    }
-                }
-            }
-            GridPane boardPane = new GridPane();
-            boardPane.setAlignment(Pos.TOP_CENTER);
-            boardPane.setPadding(new Insets(10, 10, 10, 10));
-            for (int i = 0; i < guiBoard.length; i++)
-                for (int j = 0; j < guiBoard[i].length; j++)
-                    boardPane.add(guiBoard[i][j], j, i);
+    private void handlePieceClick(MouseEvent e) {
+        Cell c = (Cell) e.getSource();
+        int currRow = c.getRow();
+        char currCol = c.getColumn();
 
-            VBox genPane = new VBox();
-            genPane.getChildren().add(boardPane);
-            genPane.setAlignment(Pos.TOP_CENTER);
-
-
-            // Create a scene and place it in the stage
-            Scene scene = new Scene(genPane, 600, 800);
-            primaryStage.setTitle("Checkers GUI"); // Set the stage title
-            primaryStage.setScene(scene); // Place the scene in the stage
-            primaryStage.show(); // Display the stage
+        if (!userMove.isEmpty()) {
+            userMove += "-";
         }
+        userMove += currRow;
+        userMove += currCol;
+        System.out.println(userMove);
     }
 
 //-------------------------- non UI methods -------------------------------
     public boolean startGame() {
-
+        String userIn = "";
         boolean GUI = false;
         boolean success = false;
 

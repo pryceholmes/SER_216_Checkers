@@ -12,33 +12,19 @@ import java.util.Scanner;
  * @version 1.4
  */
 public class CheckersTextConsole {
+    CheckersLogic game;
+
     /**
      * Main method for console-based checkers game. Uses CheckersLogic.java for all game logic
      *
-     * @param args
+     * @param currGame a reference to the current game being played
      */
-    public static void main(String[] args) {
+    public void play(CheckersLogic currGame) {
         int logicComms = 0;
-        String userIn = "";
-        CheckersLogic game;
-        boolean GUI = false;
-        boolean success = false;
+        String userIn;
+        game = currGame;
 
-        while (!success) {
-            userIn = setUI();
-            success = userIn.equals("console") || userIn.equals("GUI");
-        }
 
-        if(userIn.equals("GUI")) {
-          GUI = true;
-        }
-
-        success = false;
-        while (!success) {
-            userIn = startNewGame();
-            success = userIn.equals("player") || userIn.equals("computer");
-        }
-            game = new CheckersLogic(userIn);
 
         while (game.determineWinner() == -1) {
 
@@ -77,6 +63,8 @@ public class CheckersTextConsole {
             System.out.println("Player o Wins");
         else if (game.determineWinner() == 1)
             System.out.println("Player x Wins");
+
+        System.exit(0);
     }
 
     /**
@@ -134,24 +122,4 @@ public class CheckersTextConsole {
 
         return scnr.nextLine();
     }
-
-    /**
-     * gathers input for game mode to start a new instance of the checkers game
-     * @return user input of game mode to start playing
-     */
-    public static String startNewGame() {
-        System.out.println("Enter 'player' if you want to play against another player; " +
-                " enter 'computer' to play against the computer");
-        return getInput();
-    }
-
-    public static String setUI() {
-        System.out.println("To start a new game, enter 'console' for console based ui or 'GUI' for GUI game");
-        return getInput();
-    }
-
-
-
-
-
 }

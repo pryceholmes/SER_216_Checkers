@@ -18,18 +18,26 @@ public class CheckersTextConsole {
      * @param args
      */
     public static void main(String[] args) {
-        int logicComms;
-        String userIn;
+        int logicComms = 0;
+        String userIn = "";
         CheckersLogic game;
-            try {
-                // catch if user didn't clarify correct input
-                userIn = startNewGame();
-                if (!userIn.equals("player") && !userIn.equals("computer"))
-                    throw new UnsupportedOperationException("invalid game mode");
-            } catch (UnsupportedOperationException ex) {
-                System.out.println("Sorry, this is not a valid game mode. Please rerun the program to try again.");
-                throw ex;
-            }
+        boolean GUI = false;
+        boolean success = false;
+
+        while (!success) {
+            userIn = setUI();
+            success = userIn.equals("console") || userIn.equals("GUI");
+        }
+
+        if(userIn.equals("GUI")) {
+          GUI = true;
+        }
+
+        success = false;
+        while (!success) {
+            userIn = startNewGame();
+            success = userIn.equals("player") || userIn.equals("computer");
+        }
             game = new CheckersLogic(userIn);
 
         while (game.determineWinner() == -1) {
@@ -132,8 +140,13 @@ public class CheckersTextConsole {
      * @return user input of game mode to start playing
      */
     public static String startNewGame() {
-        System.out.println("To start a new game, enter 'player' if you want to play against another player; " +
+        System.out.println("Enter 'player' if you want to play against another player; " +
                 " enter 'computer' to play against the computer");
+        return getInput();
+    }
+
+    public static String setUI() {
+        System.out.println("To start a new game, enter 'console' for console based ui or 'GUI' for GUI game");
         return getInput();
     }
 

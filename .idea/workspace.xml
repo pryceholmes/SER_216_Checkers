@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Need to finish computer player GUI">
+    <list default="true" id="c6f4417f-410e-4477-934d-9e435d05257b" name="Changes" comment="Finished GUI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui/CheckerGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui/CheckerGUI.java" afterDir="false" />
     </list>
@@ -126,7 +126,7 @@
       <workItem from="1707071103406" duration="1297000" />
       <workItem from="1707076044305" duration="12009000" />
       <workItem from="1707090126629" duration="3472000" />
-      <workItem from="1707171061836" duration="1067000" />
+      <workItem from="1707171061836" duration="3000000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit &#10;v0.0">
       <option name="closed" value="true" />
@@ -272,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707093596755</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Finished GUI">
+      <option name="closed" value="true" />
+      <created>1707172352830</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1707172352830</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,6 +303,7 @@
     <MESSAGE value="gameboard finished" />
     <MESSAGE value="added bottom pane, added piece tracking" />
     <MESSAGE value="Need to finish computer player GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Need to finish computer player GUI" />
+    <MESSAGE value="Finished GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished GUI" />
   </component>
 </project>

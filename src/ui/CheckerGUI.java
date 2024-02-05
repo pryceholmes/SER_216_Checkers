@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
@@ -19,21 +20,26 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.scene.control.Button;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.Scanner;
 
 public class CheckerGUI extends Application {
 
     private static CheckersLogic game;
     private int[][] board;
+    Cell[][] guiBoard;
     private String userMove = "";
+    Text t = new Text();
+
     @Override
     public void start(Stage primaryStage) {
         boolean UIMode = startGame();
         if (!UIMode) {
             new CheckersTextConsole().play(game);
         } else {
-            Cell[][] guiBoard = new Cell[8][8];
+            guiBoard = new Cell[8][8];
 
             for (int i = 0; i < board.length; i++) {
                 for (int j = 0; j < board[i].length; j++) {
@@ -69,28 +75,28 @@ public class CheckerGUI extends Application {
                     boardPane.add(guiBoard[i][j], j, i);
 
 
-            Text t = new Text();
-            t.setText("This is an example text to show to the user");
+            t.setText("Player black, your turn. \nPlease start by clicking a piece you want to move," +
+                    " \nfollowed by clicking 1 or more open spaces you would like to move to. " +
+                    "\nFinish your move by clicking Submit Move.");
             t.setFont(Font.font(15));
 
 
-            Button endGame = new Button("End Game");
-            endGame.setPrefSize(100, 30);
+
 
 
             Button submitMove = new Button("Submit Move");
             submitMove.setPrefSize(100, 30);
+            submitMove.setOnAction(e -> handleSubmitButton());
 
-            VBox buttons = new VBox();
-            buttons.getChildren().addAll(submitMove, endGame);
-            buttons.setSpacing(15);
+            Pane buttons = new Pane();
+            buttons.getChildren().addAll(submitMove);
 
 
 
-            BorderPane bottomPane = new BorderPane();
-            bottomPane.setTop(t);
-            bottomPane.setRight(buttons);
-            bottomPane.setPadding(new Insets(10, 25, 15, 100));
+            HBox bottomPane = new HBox();
+            bottomPane.getChildren().addAll(t, buttons);
+            bottomPane.setPadding(new Insets(25, 25, 25, 25));
+            bottomPane.setSpacing(-10);
 
 
             VBox genPane = new VBox();
@@ -104,6 +110,7 @@ public class CheckerGUI extends Application {
             primaryStage.setScene(scene); // Place the scene in the stage
             primaryStage.show(); // Display the stage
         }
+
     }
 
     class Cell extends Pane {
@@ -151,7 +158,7 @@ public class CheckerGUI extends Application {
                 // Add the circle to the pane
                 this.getChildren().addAll(circ2);
             } else if (token == -1) {
-                // this.getChildren().clear();
+                this.getChildren().clear();
             }
         }
     }
@@ -167,6 +174,47 @@ public class CheckerGUI extends Application {
         userMove += currRow;
         userMove += currCol;
         System.out.println(userMove);
+    }
+
+    private void handleSubmitButton() {
+        int success = game.movePiece(userMove);
+        board = game.getBoard();
+        userMove = "";
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == -1) {
+                    guiBoard[i][j].setToken(-1);
+                } else if (board[i][j] == 1) {
+                    guiBoard[i][j].setToken(-1);
+                    guiBoard[i][j].setToken(1);
+                } else {
+                    guiBoard[i][j].setToken(-1);
+                    guiBoard[i][j].setToken(0);
+                }
+            }
+        }
+        if (success == 0)
+            t.setText("Invalid move, please try again. \nPlease start by clicking a piece you want to move, " +
+                    " \nfollowed by clicking 1 or more open spaces you would like to move to. " +
+                    "\nFinish your move by clicking Submit Move");
+        if (game.determineWinner() == 1) {
+            t.setText("Player Black Wins, thank you for playing.");
+        } else if (game.determineWinner() == 0) {
+            t.setText("Player Red Wins, thank you for playing.");
+        } else if (game.determineWinner() == -1) {
+            if (game.getMode() == false && game.getTurn() == 1) {
+                t.setText("Player black, your turn. \nPlease start by clicking a piece you want to move," +
+                        " \nfollowed by clicking 1 or more open spaces you would like to move to. " +
+                        "\nFinish your move by clicking Submit Move.");
+            } else if (game.getMode() == false && game.getTurn() == 0) {
+                t.setText("Player red, your turn. \nPlease start by clicking a piece you want to move," +
+                        " \nfollowed by clicking 1 or more open spaces you would like to move to. " +
+                        "\nFinish your move by clicking Submit Move.");
+            } else if (game.getMode() == true) {
+                t.setText("To move a piece, \nstart by clicking a piece you want to move \nfollowed by 1 or more open spaces \nyou would like to move to. \nAfter you complete your turn" +
+                        ", \nplease allow one second for the \ncomputer to complete its turn. \nAfter the computer has moved \nyou can submit your next move.");
+            }
+        }
     }
 
 //-------------------------- non UI methods -------------------------------

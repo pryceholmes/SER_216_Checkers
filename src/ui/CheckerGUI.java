@@ -76,7 +76,7 @@ public class CheckerGUI extends Application {
 
 
             t.setText("Player black, your turn. \nPlease start by clicking a piece you want to move," +
-                    " \nfollowed by clicking 1 or more open spaces you would like to move to. " +
+                    " \nfollowed by clicking 1 or more open spaces \nyou would like to move to. " +
                     "\nFinish your move by clicking Submit Move.");
             t.setFont(Font.font(15));
 
@@ -96,7 +96,8 @@ public class CheckerGUI extends Application {
             HBox bottomPane = new HBox();
             bottomPane.getChildren().addAll(t, buttons);
             bottomPane.setPadding(new Insets(25, 25, 25, 25));
-            bottomPane.setSpacing(-10);
+            bottomPane.setSpacing(25);
+
 
 
             VBox genPane = new VBox();
@@ -180,6 +181,14 @@ public class CheckerGUI extends Application {
         int success = game.movePiece(userMove);
         board = game.getBoard();
         userMove = "";
+        if (success == 0)
+            t.setText("Invalid move, please try again. \nPlease start by clicking a piece you want to move, " +
+                    " \nfollowed by clicking 1 or more open spaces you would like to move to. " +
+                    "\nFinish your move by clicking Submit Move");
+        if (game.getMode() && game.determineWinner() == -1) {
+            game.movePiece("Cturn");
+            board = game.getBoard();
+        }
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == -1) {
@@ -193,15 +202,12 @@ public class CheckerGUI extends Application {
                 }
             }
         }
-        if (success == 0)
-            t.setText("Invalid move, please try again. \nPlease start by clicking a piece you want to move, " +
-                    " \nfollowed by clicking 1 or more open spaces you would like to move to. " +
-                    "\nFinish your move by clicking Submit Move");
+
         if (game.determineWinner() == 1) {
             t.setText("Player Black Wins, thank you for playing.");
         } else if (game.determineWinner() == 0) {
             t.setText("Player Red Wins, thank you for playing.");
-        } else if (game.determineWinner() == -1) {
+        } else if (game.determineWinner() == -1 && success == 1) {
             if (game.getMode() == false && game.getTurn() == 1) {
                 t.setText("Player black, your turn. \nPlease start by clicking a piece you want to move," +
                         " \nfollowed by clicking 1 or more open spaces you would like to move to. " +
@@ -212,7 +218,7 @@ public class CheckerGUI extends Application {
                         "\nFinish your move by clicking Submit Move.");
             } else if (game.getMode() == true) {
                 t.setText("To move a piece, \nstart by clicking a piece you want to move \nfollowed by 1 or more open spaces \nyou would like to move to. \nAfter you complete your turn" +
-                        ", \nplease allow one second for the \ncomputer to complete its turn. \nAfter the computer has moved \nyou can submit your next move.");
+                        ", \nAfter the computer has moved \nyou can submit your next move.");
             }
         }
     }

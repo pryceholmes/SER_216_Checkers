@@ -35,6 +35,7 @@ public class CheckersLogic {
 
     /** default constructor, initializes to a new game board, X's turn */
     public CheckersLogic(String input) throws UnsupportedOperationException{
+        // create a new board
         board = new int[][]{{-1, 0, -1, 0, -1, 0, -1, 0},
                             {0, -1, 0, -1, 0, -1, 0, -1},
                             {-1, 0, -1, 0, -1, 0, -1, 0},
@@ -43,7 +44,9 @@ public class CheckersLogic {
                             {1, -1, 1, -1, 1, -1, 1, -1},
                             {-1, 1, -1, 1, -1, 1, -1, 1},
                             {1, -1, 1, -1, 1, -1, 1, -1}};
+        // game starts on x's turn
         turn = 1;
+        // sets game mode and creates new computer player
         if (input.equals("player")) {
             computerGame = false;
             computer = null;
@@ -92,6 +95,10 @@ public class CheckersLogic {
 
             if (checkValidMove(old_y, old_x, new_y, new_x, jumpEligible) == 0) return 0;
             else if (checkValidMove(old_y, old_x, new_y, new_x, jumpEligible) == 1) {
+                if ((!computerGame || turn == 1) && input.length() > 5 ) {
+                    return 0;
+                }
+
                 board[old_y][old_x] = -1;
                 board[new_y][new_x] = turn;
             } else {

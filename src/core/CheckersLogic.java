@@ -140,7 +140,7 @@ public class CheckersLogic {
 
         // first check that coords are valid
         if (old_y < 0 || old_y > 7) return 0;
-        else if (old_x < 0 || old_y > 7) return 0;
+        else if (old_x < 0 || old_x > 7) return 0;
         else if (new_y < 0 || new_y > 7) return 0;
         else if (new_x < 0 || new_x > 7) return 0;
 
@@ -430,7 +430,10 @@ public class CheckersLogic {
         return computerGame;
     }
 
-
+    // -------------------------- Method for testing purposes only --------------------------
+    public void setBoard(int[][] board) {
+        this.board = board;
+    }
 
 
 

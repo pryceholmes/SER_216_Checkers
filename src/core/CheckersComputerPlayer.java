@@ -25,9 +25,10 @@ public class CheckersComputerPlayer {
 
     /**
      * Constructor to create a new computer player, given a reference to game board. No last moved piece
+     *
      * @param boardRef A reference to game board of the game computer player is playing with user
      */
-    CheckersComputerPlayer(int[][] boardRef) {
+    public CheckersComputerPlayer(int[][] boardRef) {
         board = boardRef;
         lastX = -1;
         lastY = -1;
@@ -36,6 +37,7 @@ public class CheckersComputerPlayer {
 
     /**
      * sets the value of the last used x coordinate
+     *
      * @param x the x value of the last used piece
      */
     public void setLastX(int x) {
@@ -44,6 +46,7 @@ public class CheckersComputerPlayer {
 
     /**
      * sets the value of the last used y coordinate
+     *
      * @param y the y value of the last used piece
      */
     public void setLastY(int y) {
@@ -52,8 +55,9 @@ public class CheckersComputerPlayer {
 
     /**
      * finds a computer player piece that has a valid move
+     *
      * @return int array containing success value, x coord, and y coord.
-     *         If piece was found, array[0] is 1, else array[0] is 0.
+     * If piece was found, array[0] is 1, else array[0] is 0.
      */
     public int[] findPiece() {
         int[] pieceCoords = {0, 0, 0};
@@ -101,7 +105,7 @@ public class CheckersComputerPlayer {
         // if piece is not near edge, check all move cases
         if (row < 6 && column > 1 && column < 6) {
             // check if piece can move 1 space diag
-            if (board[yDiag][xDiagL] == -1){
+            if (board[yDiag][xDiagL] == -1) {
                 moveCoords[1] = yDiag;
                 moveCoords[2] = xDiagL;
                 moveCoords[0] = 1;
@@ -228,9 +232,12 @@ public class CheckersComputerPlayer {
 
     /**
      * updates the computers game board to the given input
+     *
      * @param updatedBoard the game board to update this classes version of the game board to
      */
     public void updateBoard(int[][] updatedBoard) {
         board = updatedBoard;
     }
 }
+
+
